@@ -1,22 +1,37 @@
+:root {
+  "323C56"
+  AA4846
+  CC8D49
+  A0877D
+  EDEEE2
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.wrapper{
+.wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 80%;
   height: 100%;
+  margin: 10px auto;
+  gap: 15px;
 }
 
-.card{
+.card {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: grey;
+  border-radius: 20px;
+  padding: 8px;
+}
+
+.card img {
+  width: 70%;
   border-radius: 20px;
 }
