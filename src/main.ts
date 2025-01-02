@@ -89,7 +89,7 @@ async function displayMovies(movies: Movie[]) {
     title.textContent = movie.title;
 
     const description = document.createElement("p");
-    description.textContent = movie.overview;
+    // description.textContent = movie.overview;
 
     const image = document.createElement("img");
     image.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
@@ -101,7 +101,7 @@ async function displayMovies(movies: Movie[]) {
 
     const genre = document.createElement("p");
     const movieGenresTest = handleGenre(movie.genre_ids);
-    genre.textContent = `Genres: ${movieGenresTest}`;
+    genre.textContent = `Genres: ${movieGenresTest} `;
 
     // Append elements to movie container
     card.appendChild(title);
@@ -110,5 +110,9 @@ async function displayMovies(movies: Movie[]) {
     card.appendChild(image);
     card.appendChild(description);
     wrapper.appendChild(card);
+
+    card.addEventListener("click", () => {
+      description.textContent = movie.overview;
+    });
   });
 }
