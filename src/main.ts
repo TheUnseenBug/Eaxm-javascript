@@ -19,7 +19,9 @@ async function serverRequest() {
       Authorization:
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjVmMjdlN2NmYzQ4NGJhZTQyM2UxNDQyYjkxNmUxNiIsIm5iZiI6MTcwMDY5NDA1MC44NjA5OTk4LCJzdWIiOiI2NTVlODgyMjdkZmRhNjAxMWJhZTUxNmQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GWVFB8R4UZZayQOVqkvIeLtUbhdkUBQrBJnMOkYYYwQ",
     },
-  }).then((response) => (popularMovies = response.data.results));
+  })
+  const data = await popular.data;
+  popularMovies = data.results;
   console.log(popular);
   await displayMovies(popularMovies);
 }
