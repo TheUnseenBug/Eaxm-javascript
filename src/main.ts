@@ -1,10 +1,15 @@
 //Speciellt sätt för att importera css när man använder vite.
 import "./style.css";
-
 import axios from "axios";
 import Movie from "./types";
 let popularMovies: Movie[] = [];
-
+document.getElementById('search-button')?.addEventListener('click', async () => {
+  const query = (document.getElementById('search-input') as HTMLInputElement).value;
+  if (query) {
+    const searchResults = await searchMovies(query);
+    await displayMovies(searchResults);
+  }
+});
 async function serverRequest() {
   const popular = await axios({
     method: "get",
@@ -19,6 +24,19 @@ async function serverRequest() {
   await displayMovies(popularMovies);
 }
 
+async function searchMovies(query: string): Promise<Movie[]> {
+  const response = await axios({
+    method: "get",
+    url: `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`,
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjVmMjdlN2NmYzQ4NGJhZTQyM2UxNDQyYjkxNmUxNiIsIm5iZiI6MTcwMDY5NDA1MC44NjA5OTk4LCJzdWIiOiI2NTVlODgyMjdkZmRhNjAxMWJhZTUxNmQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GWVFB8R4UZZayQOVqkvIeLtUbhdkUBQrBJnMOkYYYwQ`,
+    },
+  });
+  const data = await response.data;
+  console.log(data.results);
+  return data.results.slice(0, 9);
+}
 serverRequest();
 
 function convertDate(dateString: string) {
@@ -80,6 +98,7 @@ function handleGenre(genreIds: number[]) {
 
 async function displayMovies(movies: Movie[]) {
   const wrapper = document.querySelector(".wrapper") as HTMLElement;
+  wrapper.innerHTML = "";
   movies.forEach(async (movie) => {
     // Create movie elements
     const card = document.createElement("div");
