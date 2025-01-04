@@ -56,17 +56,44 @@ p {
   padding: 8px;
 }
 
-.card img {
-  width: 70%;
-  border-radius: 20px;
-}
 
-.card img:hover {
-  filter: blur(8px);
-}
 
 .card p {
   color: var(--white);
   text-align: center;
   padding: 2px 5px;
+}
+
+.image-container {
+  position: relative;
+  width: 70%;
+  height: 70%;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+.image-container:hover img {
+  filter: blur(8px);
+}
+
+/* Text läsbar? */
+
+.description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: small;
 }
