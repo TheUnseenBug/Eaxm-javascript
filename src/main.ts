@@ -110,7 +110,9 @@ async function displayMovies(movies: Movie[]) {
     title.textContent = movie.title;
 
     const description = document.createElement("p");
-    description.textContent = movie.overview;
+    //FixME - Fixa så att descriptionen inte blir för lång
+    const desc = movie.overview.slice(0, 170);
+    description.textContent = desc
     description.className = "description";
 
     const imageContainer = document.createElement("div");
@@ -129,6 +131,10 @@ async function displayMovies(movies: Movie[]) {
     const movieGenresTest = handleGenre(movie.genre_ids);
     genre.textContent = `Genres: ${movieGenresTest} `;
 
+    const favorite = document.createElement("button");
+    favorite.textContent = "Favorite";
+    favorite.className = "favorite";
+
     // Append elements to movie container
     imageContainer.appendChild(image);
     imageContainer.appendChild(description);
@@ -136,6 +142,7 @@ async function displayMovies(movies: Movie[]) {
     card.appendChild(releaseDate);
     card.appendChild(genre);
     card.appendChild(imageContainer);
+    card.appendChild(favorite);
     wrapper.appendChild(card);
 
     card.addEventListener("mouseover", () => {
@@ -146,4 +153,37 @@ async function displayMovies(movies: Movie[]) {
       description.style.display = "none";
     });
   });
+}
+
+function checkIfFavorite(movie: Movie) {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  return favorites.some((fav: Movie) => fav.id === movie.id);
+}
+
+function addToFavorites(movie: Movie) {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  favorites.push(movie);
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+function removeFromFavorites(movie: Movie) {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  const newFavorites = favorites.filter((fav: Movie) => fav.id !== movie.id);
+  localStorage.setItem("favorites", JSON.stringify(newFavorites));
+}
+
+function addToLocalStorage(movie: Movie) {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  const isFavorite = favorites.some((fav: Movie) => fav.id === movie.id);
+  if (isFavorite) {
+    removeFromFavorites(movie);
+  } else {
+    addToFavorites(movie);
+  }
+}
+
+function removeFromLocalStorage(movie: Movie) {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  const newFavorites = favorites.filter((fav: Movie) => fav.id !== movie.id);
+  localStorage.setItem("favorites", JSON.stringify(newFavorites));
 }
