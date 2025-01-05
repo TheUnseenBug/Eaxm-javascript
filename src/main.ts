@@ -132,6 +132,13 @@ async function displayMovies(movies: Movie[]) {
     genre.textContent = `Genres: ${movieGenresTest} `;
 
     const favorite = document.createElement("button");
+    // if (checkIfFavorite(movie)) {
+    //   favorite.classList.add("active");
+    //   favorite.textContent = "Unfavorite";
+    // }
+    // else {
+    //   favorite.classList.remove("active");
+    // }
     favorite.textContent = "Favorite";
     favorite.className = "favorite";
 
@@ -145,12 +152,24 @@ async function displayMovies(movies: Movie[]) {
     card.appendChild(favorite);
     wrapper.appendChild(card);
 
-    card.addEventListener("mouseover", () => {
+    imageContainer.addEventListener("mouseover", () => {
       description.style.display = "flex";
     });
 
-    card.addEventListener("mouseout", () => {
+    imageContainer.addEventListener("mouseout", () => {
       description.style.display = "none";
+    });
+
+    favorite.addEventListener("click", () => {
+      if (checkIfFavorite(movie)) {
+        removeFromLocalStorage(movie);
+        favorite.classList.remove("active");
+        favorite.textContent = "Favorite";
+      } else {
+        addToLocalStorage(movie);
+        favorite.classList.toggle("active");
+        favorite.textContent = "Unfavorite";
+      }
     });
   });
 }
