@@ -4,7 +4,7 @@ import axios from "axios";
 import Movie from "./types";
 let popularMovies: Movie[] = [];
 const cacheKey = 'popularMoviesCache';
-const cacheExpiration = 1000 * 60 * 60; // 1 hour
+const cacheExpiration = 1000 * 60 * 60; // 1000ms * 60 = 1m * 60 = 1h 
 
 document.getElementById('search-button')?.addEventListener('click', async () => {
   const query = (document.getElementById('search-input') as HTMLInputElement).value;
@@ -34,10 +34,14 @@ async function serverRequest() {
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjVmMjdlN2NmYzQ4NGJhZTQyM2UxNDQyYjkxNmUxNiIsIm5iZiI6MTcwMDY5NDA1MC44NjA5OTk4LCJzdWIiOiI2NTVlODgyMjdkZmRhNjAxMWJhZTUxNmQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GWVFB8R4UZZayQOVqkvIeLtUbhdkUBQrBJnMOkYYYwQ",
     },
   });
-  const data = await popular.data;
-  popularMovies = data.results;
-  localStorage.setItem(cacheKey, JSON.stringify({ data: popularMovies, timestamp: Date.now() }));
-  await displayMovies(popularMovies);
+  if (popular) {
+    const data = await popular.data;
+    popularMovies = data.results;
+    localStorage.setItem(cacheKey, JSON.stringify({ data: popularMovies, timestamp: Date.now() }));
+    await displayMovies(popularMovies);
+  } else {
+    console.error("Failed to fetch popular movies");
+  }
 }
 
 async function searchMovies(query: string): Promise<Movie[]> {
@@ -49,9 +53,14 @@ async function searchMovies(query: string): Promise<Movie[]> {
       Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjVmMjdlN2NmYzQ4NGJhZTQyM2UxNDQyYjkxNmUxNiIsIm5iZiI6MTcwMDY5NDA1MC44NjA5OTk4LCJzdWIiOiI2NTVlODgyMjdkZmRhNjAxMWJhZTUxNmQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GWVFB8R4UZZayQOVqkvIeLtUbhdkUBQrBJnMOkYYYwQ`,
     },
   });
-  const data = await response.data;
-  console.log(data.results);
-  return data.results.slice(0, 9);
+  if (response) {
+    const data = await response.data;
+    return data.results.slice(0, 9);
+  } else {
+    console.error("Failed to fetch search results");
+    return [];
+  }
+
 }
 serverRequest();
 
