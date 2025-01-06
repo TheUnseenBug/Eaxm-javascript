@@ -3,6 +3,7 @@ import "./style.css";
 import Movie from "./scripts/types";
 
 
+//hämtar filmer från localstorage med nyckeln favorites
 async function getItemsFromLocalStorage(key: string): Promise<any | null> {
     const item = localStorage.getItem(key);
     if (item) {
