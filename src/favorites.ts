@@ -110,7 +110,7 @@ async function displayMovies(movies: Movie[]) {
     const favorite = document.createElement("button");
      if (checkIfFavorite(movie)) {
        favorite.textContent = "Unfavorite";
-       favorite.style.backgroundColor = "red";
+       favorite.style.backgroundColor = "AA4846";
      }
      else {
        favorite.textContent = "Favorite";
@@ -139,10 +139,10 @@ async function displayMovies(movies: Movie[]) {
       if (checkIfFavorite(movie)) {
         removeFromLocalStorage(movie);
         favorite.textContent = "Favorite";
-        favorite.style.backgroundColor = "blue";
+        favorite.style.backgroundColor = "323C56";
       } else {
         addToLocalStorage(movie);
-        favorite.style.backgroundColor = "red";
+        favorite.style.backgroundColor = "AA4846";
         favorite.textContent = "Unfavorite";
       }
     });

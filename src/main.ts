@@ -186,7 +186,7 @@ async function displayMovies(movies: Movie[]) {
       if (checkIfFavorite(movie)) {
         removeFromLocalStorage(movie);
         favorite.textContent = "Favorite";
-        favorite.style.backgroundColor = "blue";
+        favorite.style.backgroundColor = "323C56";
       } else {
         addToLocalStorage(movie);
         favorite.style.backgroundColor = "AA4846";
