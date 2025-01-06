@@ -125,7 +125,7 @@ p {
   align-items: center;
   text-align: center;
   box-sizing: border-box;
-  font-size: xx-small;
+  font-size: small;
 }
 
 .favorite {
@@ -138,6 +138,6 @@ p {
   cursor: pointer;
 }
 
-.favorite.active {
-  background-color: #FF0000;
+.favorite:hover {
+  background-color: #0056b3;
 }
