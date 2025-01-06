@@ -3,6 +3,9 @@ import "./style.css";
 import axios from "axios";
 import Movie from "./types";
 let popularMovies: Movie[] = [];
+const cacheKey = 'popularMoviesCache';
+const cacheExpiration = 1000 * 60 * 60; // 1 hour
+
 document.getElementById('search-button')?.addEventListener('click', async () => {
   const query = (document.getElementById('search-input') as HTMLInputElement).value;
   if (query) {
@@ -10,7 +13,18 @@ document.getElementById('search-button')?.addEventListener('click', async () => 
     await displayMovies(searchResults);
   }
 });
+
+
 async function serverRequest() {
+  const cachedData = localStorage.getItem(cacheKey);
+  if (cachedData) {
+    const { data, timestamp } = JSON.parse(cachedData);
+    if (Date.now() - timestamp < cacheExpiration) {
+      popularMovies = data;
+      await displayMovies(popularMovies);
+      return;
+    }
+  }
   const popular = await axios({
     method: "get",
     url: "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
@@ -19,10 +33,10 @@ async function serverRequest() {
       Authorization:
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjVmMjdlN2NmYzQ4NGJhZTQyM2UxNDQyYjkxNmUxNiIsIm5iZiI6MTcwMDY5NDA1MC44NjA5OTk4LCJzdWIiOiI2NTVlODgyMjdkZmRhNjAxMWJhZTUxNmQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GWVFB8R4UZZayQOVqkvIeLtUbhdkUBQrBJnMOkYYYwQ",
     },
-  })
+  });
   const data = await popular.data;
   popularMovies = data.results;
-  console.log(popular);
+  localStorage.setItem(cacheKey, JSON.stringify({ data: popularMovies, timestamp: Date.now() }));
   await displayMovies(popularMovies);
 }
 
