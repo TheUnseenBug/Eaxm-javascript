@@ -157,7 +157,7 @@ async function displayMovies(movies: Movie[]) {
     const favorite = document.createElement("button");
     if (checkIfFavorite(movie)) {
       favorite.textContent = "Unfavorite";
-      favorite.style.backgroundColor = "red";
+      favorite.style.backgroundColor = "AA4846"
     }
     else {
       favorite.textContent = "Favorite";
@@ -189,7 +189,7 @@ async function displayMovies(movies: Movie[]) {
         favorite.style.backgroundColor = "blue";
       } else {
         addToLocalStorage(movie);
-        favorite.style.backgroundColor = "red";
+        favorite.style.backgroundColor = "AA4846";
         favorite.textContent = "Unfavorite";
       }
     });
