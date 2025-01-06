@@ -1,6 +1,6 @@
 //Speciellt sätt för att importera css när man använder vite.
 import "./style.css";
-import Movie from "./types";
+import Movie from "./scripts/types";
 
 
 async function getItemsFromLocalStorage(key: string): Promise<any | null> {
