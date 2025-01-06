@@ -1,7 +1,7 @@
 //Speciellt sätt för att importera css när man använder vite.
 import "./style.css";
 import axios from "axios";
-import Movie from "./types";
+import Movie from "./scripts/types";
 let popularMovies: Movie[] = [];
 const cacheKey = 'popularMoviesCache';
 const cacheExpiration = 1000 * 60 * 60; // 1000ms * 60 = 1m * 60 = 1h 
