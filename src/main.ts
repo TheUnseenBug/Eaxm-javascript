@@ -15,7 +15,7 @@ document.getElementById('search-button')?.addEventListener('click', async () => 
 });
 
 
-async function serverRequest() {
+async function getPopularMovies() {
   const cachedData = localStorage.getItem(cacheKey);
   if (cachedData) {
     const { data, timestamp } = JSON.parse(cachedData);
@@ -62,7 +62,7 @@ async function searchMovies(query: string): Promise<Movie[]> {
   }
 
 }
-serverRequest();
+getPopularMovies();
 
 function convertDate(dateString: string) {
   var date = new Date(dateString);
