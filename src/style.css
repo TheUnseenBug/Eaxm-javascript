@@ -37,11 +37,47 @@ p {
   color: #b3b3b3; /* Netflix's gray for text */
 }
 
+.navbar li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: var(--background);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+}
+
+.navbar a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  background-color: var(--background);
+  flex-direction: row;
+}
+
+.navbar a {
+  padding: 5px 2.5px;
+  border-radius: 5px;
+}
+.navbar :hover {
+  color: var(--accent);
+  background-color: var(--text);
+}
+
 .wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
+  margin-top: 50px;
 }
 
 .search-container {

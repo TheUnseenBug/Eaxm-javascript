@@ -125,7 +125,7 @@ async function displayMovies(movies: Movie[]) {
 
     const description = document.createElement("p");
     //FixME - Fixa så att descriptionen inte blir för lång
-    const desc = movie.overview.slice(0, 170);
+    const desc = movie.overview.slice(0, 500);
     description.textContent = desc
     description.className = "description";
 
@@ -146,14 +146,13 @@ async function displayMovies(movies: Movie[]) {
     genre.textContent = `Genres: ${movieGenresTest} `;
 
     const favorite = document.createElement("button");
-    // if (checkIfFavorite(movie)) {
-    //   favorite.classList.add("active");
-    //   favorite.textContent = "Unfavorite";
-    // }
-    // else {
-    //   favorite.classList.remove("active");
-    // }
-    favorite.textContent = "Favorite";
+    if (checkIfFavorite(movie)) {
+      favorite.textContent = "Unfavorite";
+      favorite.style.backgroundColor = "red";
+    }
+    else {
+      favorite.textContent = "Favorite";
+    }
     favorite.className = "favorite";
 
     // Append elements to movie container
@@ -177,11 +176,11 @@ async function displayMovies(movies: Movie[]) {
     favorite.addEventListener("click", () => {
       if (checkIfFavorite(movie)) {
         removeFromLocalStorage(movie);
-        favorite.classList.remove("active");
         favorite.textContent = "Favorite";
+        favorite.style.backgroundColor = "blue";
       } else {
         addToLocalStorage(movie);
-        favorite.classList.toggle("active");
+        favorite.style.backgroundColor = "red";
         favorite.textContent = "Unfavorite";
       }
     });
